@@ -1,0 +1,25 @@
+#container
+{
+    position: relative;
+
+    overflow: hidden;
+
+    height: 477px;
+    margin: 0 auto;
+
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+#container img
+{
+    position: absolute;
+    left: 0;
+
+    display: block;
+
+    width: 475px;
+    height: 477px;
+
+    border-left: 1px solid #ccc;
+}
