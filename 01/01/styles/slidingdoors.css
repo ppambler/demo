@@ -5,7 +5,7 @@
     overflow: hidden;
 
     height: 477px;
-    margin: 0 auto;
+    margin: 60px auto;
 
     border-right: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
@@ -18,8 +18,15 @@
 
     display: block;
 
-    width: 475px;
     height: 477px;
 
+    transition: all .8s ease;
+
+    border-top: 1px solid #ccc;
     border-left: 1px solid #ccc;
+}
+
+#container img:hover
+{
+    cursor: pointer;
 }
