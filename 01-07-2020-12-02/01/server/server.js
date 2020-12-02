@@ -25,16 +25,29 @@ var server = http.createServer(function (request, response) {
 
   if (path === "/" || path === "/index.html") {
     response.statusCode = 200;
+    console.log("他请求访问/index.html");
     response.setHeader("Content-Type", "text/html;charset=utf-8");
-    response.write(fs.readFileSync("./public/index.html"));
+    let string = fs.readFileSync(`public/index.html`);
+    console.log(`fs.readFileSync('public/index.html')是一个${typeof string}`);
+    console.log(string) //Buffer实例
+    string = string.toString();
+    console.log(string) // index.html里边的字符串化内容
+    const page1 = fs.readFileSync(`db/page1.json`);
+    console.log(page1)
+    const array = JSON.parse(page1);
+    console.log(array)
+    const result = array.map((item) => `<li>${item.id}</li>`).join("");
+    // 前后端不分离的渲染技术
+    string = string.replace(`{{page}}`, `<ul>${result}</ul>`);
+    console.log(result)
+    response.write(string);
     response.end();
-   } else if (path === "/5.json") {
+  } else if (path === "/5.json") {
     response.statusCode = 200;
     response.setHeader("Content-Type", "application/json;charset=utf-8");
     response.write(fs.readFileSync("./public/5.json"));
     response.end();
-   }
-  else if (path === "/4.xml") {
+  } else if (path === "/4.xml") {
     response.statusCode = 200;
     response.setHeader("Content-Type", "application/xml;charset=utf-8");
     response.write(fs.readFileSync("./public/4.xml"));
@@ -58,6 +71,24 @@ var server = http.createServer(function (request, response) {
     response.statusCode = 200;
     response.setHeader("Content-Type", "text/css;charset=utf-8");
     response.write(fs.readFileSync("./styles/main.css"));
+    response.end();
+  } else if (path === "/page1.json") {
+    response.statusCode = 200;
+    console.log(`他请求访问/page1.json`);
+    response.setHeader("Content-Type", "application/json;charset=utf-8");
+    response.write(fs.readFileSync(`db/page1.json`));
+    response.end();
+  } else if (path === "/page2.json") {
+    response.statusCode = 200;
+    console.log(`他请求访问/page2.json`);
+    response.setHeader("Content-Type", "application/json;charset=utf-8");
+    response.write(fs.readFileSync(`db/page2.json`));
+    response.end();
+  } else if (path === "/page3.json") {
+    response.statusCode = 200;
+    console.log(`他请求访问/page3.json`);
+    response.setHeader("Content-Type", "application/json;charset=utf-8");
+    response.write(fs.readFileSync(`db/page3.json`));
     response.end();
   } else {
     response.statusCode = 404;
