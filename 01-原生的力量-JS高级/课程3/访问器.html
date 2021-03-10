@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <title>访问器</title>
+    <style></style>
+  </head>
+  <body>
+    <script>
+      class A {
+        constructor() {
+          this._count = 12;
+        }
+
+        get count() {
+          return this._count;
+        }
+        set count(val) {
+          if (typeof val != "number") {
+            throw new Error("count must be a number");
+          }
+
+          this._count = val;
+        }
+      }
+
+      let a = new A();
+
+      console.log(a.count); // 12
+    </script>
+  </body>
+</html>

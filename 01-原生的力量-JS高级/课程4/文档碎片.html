@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <title>文档碎片</title>
+    <style></style>
+  </head>
+  <body>
+    <div id="div1"></div>
+    <script>
+      let root = document.getElementById("div1");
+
+      let frag = document.createDocumentFragment();
+      let h2 = document.createElement("h2");
+      h2.innerHTML = "Hello";
+      frag.appendChild(h2);
+
+      let ul = document.createElement("ul");
+      ul.innerHTML = "<li>list1</li><li>list2</li><li>list3</li><li>list4</li>";
+      frag.appendChild(ul);
+      // root.appendChild(frag);
+
+      console.time('Test');
+      for (let i = 0; i < 100000; i++) {
+        // true 是深克隆，表示后代元素也 clone 了，如果不加，那就值 clone 最外边一层了
+        // 对于文档碎片而言，那就是无了！
+        let ele = frag.cloneNode(true);
+        root.appendChild(ele);
+      }
+      console.timeEnd('Test') //903
+    </script>
+  </body>
+</html>

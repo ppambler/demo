@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <title>prototype</title>
+    <style></style>
+  </head>
+  <body>
+    <script>
+      let arr = [1,2,3]
+      alert(arr.a) // undefined
+
+      Array.prototype.a = '666'
+      alert(arr.a)
+
+      let arr2 = [3,4,5]
+      alert(arr2.a)
+    </script>
+  </body>
+</html>

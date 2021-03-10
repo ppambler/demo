@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <title>文档碎片</title>
+    <style></style>
+  </head>
+  <body>
+    <div id="div1"></div>
+    <script>
+      let root = document.getElementById("div1");
+
+      let h2 = document.createElement("h2");
+      h2.innerHTML = "Hello";
+
+      let ul = document.createElement("ul");
+      ul.innerHTML = "<li>list1</li><li>list2</li><li>list3</li><li>list4</li>";
+
+      console.time('Test');
+      for (let i = 0; i < 100000; i++) {
+        let e1 = h2.cloneNode(true)
+        let e2 = ul.cloneNode(true)
+        root.appendChild(e1);
+        root.appendChild(e2);
+      }
+      console.timeEnd('Test') //1922ms
+    </script>
+  </body>
+</html>

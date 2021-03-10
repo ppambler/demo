@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <title>proxy跟函数配合</title>
+    <style></style>
+  </head>
+  <body>
+    <script>
+      let _data = [1, 2, 3];
+
+      let p = new Proxy(_data, {
+        get(data, name) {
+          console.log("get");
+          return data[name];
+        },
+        set(data, name, val) {
+          console.log("set");
+          data[name] = val;
+        },
+      });
+    </script>
+  </body>
+</html>

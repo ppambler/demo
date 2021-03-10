@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <title>定义属性</title>
+    <style></style>
+  </head>
+  <body>
+    <script>
+      let json = { _a: 10 };
+      Object.defineProperty(json, "a", {
+        configurable: true,
+        get() {
+          console.log("get");
+          return json._a;
+        },
+        set(val) {
+          console.log("set", val);
+          json._a = val;
+        },
+      });
+
+      json.a = 55;
+    </script>
+  </body>
+</html>

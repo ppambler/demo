@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <title>编译DOM节点</title>
+    <style></style>
+  </head>
+  <body>
+    <div id="root">
+      姓名：{{name}}
+
+      <button type="button" @click="add">a+=6</button>
+
+      <input type="text" :value="a" />
+      <span :title="name">测试title指令</span>
+
+      <div class="">-----------------</div>
+
+      {{a+b+json.n}}
+    </div>
+    <script src="./blue.js"></script>
+  </body>
+</html>

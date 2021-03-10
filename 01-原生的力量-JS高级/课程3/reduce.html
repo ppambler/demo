@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <title>reduce</title>
+    <style></style>
+  </head>
+  <body>
+    <script>
+      Array.prototype.reduce =
+        Array.prototype.reduce ||
+        function (cb, initialValue) {
+          var start = 0;
+          if (typeof initialValue == "undefined") {
+            initialValue = this[0];
+            start = 1;
+          }
+
+          for (start; start < this.length; start++) {
+            initialValue = cb(initialValue, this[start], start);
+          }
+
+          return initialValue;
+        };
+
+      let arr = [12, 5, 7, 9];
+      let sum = arr.reduce(function (tmp, item, index) {
+        return tmp + item;
+      }, 99);
+      let arr1 = [1,2,3]
+      let sum1 = arr1.reduce((tmp, item)=>{
+        return tmp + item
+      })
+
+      console.log(sum);
+      console.log(sum1)
+    </script>
+  </body>
+</html>

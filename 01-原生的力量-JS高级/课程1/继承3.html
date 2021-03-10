@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <title>继承3</title>
+    <style></style>
+  </head>
+  <body>
+    <script>
+      class Staff {
+        constructor(name, depart, basicSalary) {
+          this.name = name;
+          this.depart = depart;
+          this.basicSalary = basicSalary;
+        }
+        salary() {
+          if (this.basicSalary <= 5000) {
+            return this.basicSalary - 800;
+          } else if (this.basicSalary <= 1000) {
+            return this.basicSalary - 1200;
+          } else {
+            return this.basicSalary - 1000;
+          }
+        }
+      }
+
+      class Coder extends Staff {
+        constructor(name, depart, basicSalary, language) {
+          // 不需要你写 this.name…… 了
+          super(name, depart, basicSalary);
+          this.language = language;
+        }
+        salary() {
+          // console.log(super)
+          return Math.ceil(super.salary() * 1.1);
+        }
+      }
+
+      class Designer extends Staff {
+        constructor(name, depart, basicSalary, software) {
+          super(name, depart, basicSalary);
+
+          this.software = software;
+        }
+
+        salary() {
+          return super.salary() + 500;
+        }
+      }
+      let zhangsan = new Coder("张三", "技术部", 8000, "js");
+      let lisi = new Designer("李四", "设计部", 7000, "ps");
+      console.log(zhangsan.salary()); // 7701
+      console.log(lisi.salary()); // 6500
+
+      let staffs = [
+        new Coder("zhangsan", 18, 5000, "js"),
+        new Coder("lisi", 21, 8000, "PHP"),
+        new Coder("aaa", 23, 3000, "java"),
+        new Designer("tony", 25, 8000, "ps"),
+      ];
+
+      //多态——简化代码
+      // 不去管实例的具体类型（一般情况下，都是继承自同一个父类），直接把父类中的公共方法拿来用
+      let sum = 0;
+      staffs.forEach((staff) => {
+        sum += staff.salary();
+      });
+
+      console.log(sum); // 21801
+    </script>
+  </body>
+</html>

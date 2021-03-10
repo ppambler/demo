@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style media="screen">
+      .dialog {
+        width: 400px;
+        height: 300px;
+        margin: 10px auto;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="div1">
+      <div class="">adfasdfsad</div>
+      <Cmp1 click="fn"></Cmp1>
+      <Cmp1></Cmp1>
+      <UserLogin></UserLogin>
+    </div>
+
+    <script>
+      //html元素->组件
+      function render(options) {
+        //1.root搞定
+        let root = null;
+        // 尽早定位错误
+        if (typeof options.root == "string") {
+          root = document.querySelector(options.root);
+
+          if (!root) {
+            throw new Error(`can't found ${options.root}`);
+          }
+        } else if (options.root instanceof HTMLElement) {
+          root = options.root;
+        } else {
+          throw new Error("root invaild");
+        }
+
+        //2.找出所有自定义元素
+        let elements = root.getElementsByTagName("*");
+
+        //遍历所有元素，找到不能识别的元素
+        Array.from(elements).forEach((element) => {
+          // HTMLUnknownElement
+          if (element.constructor == HTMLUnknownElement) {
+            // 你传的和写在HTML里边的作比较，如果写在HTML里边的是，是你传的
+            // 那么就替换成真实DOM呗！
+            for (let cmpName in options.components) {
+              // tagName 返回都是大写，我们传的自定义组件名是Xxx这样的格式
+              if (cmpName.toLowerCase() == element.tagName.toLowerCase()) {
+                // 组件名即是类名
+                let CmpCls = options.components[cmpName];
+
+                let cmp = new CmpCls();
+                // 多态思想
+                let res = cmp.render();
+
+                // 由于是从 根元素 里边选的，所有自定义标签肯定是有父元素的
+                // 参数1：新的，参数2：旧的
+                // 定位一个容器，从这个容器里边找到一个你想替换的元素
+                element.parentNode.replaceChild(res, element);
+              }
+            }
+          }
+        });
+      }
+
+      //抽象的
+      class Component {
+        render() {
+          throw new Error(`render is required`);
+        }
+      }
+
+      class Cmp1 extends Component {
+        render() {
+          let div = document.createElement("div");
+          div.innerHTML = "我是cmp1";
+
+          return div;
+        }
+      }
+
+      class UserLogin extends Component {
+        render() {
+          let div = document.createElement("div");
+          div.className = "dialog";
+          div.innerHTML = "dsfasdfsd";
+
+          return div;
+        }
+      }
+
+      // 这类似 Vue
+      render({
+        root: "#div1",
+        components: {
+          Cmp1,
+          UserLogin,
+        },
+        methods: {
+          fn() {
+            alert("a");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
